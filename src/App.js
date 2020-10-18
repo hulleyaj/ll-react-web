@@ -1,14 +1,29 @@
 import React from 'react';
-import { Button } from 'll-pkg';
+import { connect } from 'react-redux';
+import { Button, decrementAction, incrementAction } from 'll-pkg';
 import './App.css';
 
-function App() {
+function App({ decrementAction, count, incrementAction}) {
   return (
     <div className="App">
       <h2>This is a counter</h2>
-      <Button text="lol" />
+      <Button text="-" onClick={decrementAction} />
+      <span>{count}</span>
+      <Button text="+" onClick={incrementAction} />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  count: state.counterReducer.count
+})
+
+const mapDispatchToProps = {
+  decrementAction,
+  incrementAction
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
